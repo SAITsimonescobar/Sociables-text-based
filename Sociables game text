@@ -1,0 +1,75 @@
+import random
+
+class Card:
+    def __init__(self, suit, rank):
+        self.suit = suit
+        self.rank = rank
+        self.description = self.get_description()
+
+    def __repr__(self):
+        return f"{self.rank} of {self.suit}"
+
+    def get_description(self):
+        descriptions = {
+            '2': 'GIVE TWO.',
+            '3': 'TAKE TWO.',
+            '4': 'RHYME TIME.',
+            '5': 'NEVER HAVE I EVER.',
+            '6': 'STORY TIME.',
+            '7': 'THUMB CARD.',
+            '8': 'CATEGORIES.',
+            '9': 'RULE CARD.',
+            '10': 'WATERFALL.',
+            'Jack': 'GUYS DRINK.',
+            'Queen': 'LADIES DRINK.',
+            'King': 'KING SHIT.',
+            'Ace': 'SOCIABLES.'
+        }
+        return descriptions.get(self.rank, 'No description available.')
+
+class Deck:
+    def __init__(self):
+        self.cards = []
+        suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades']
+        ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace']
+
+        for suit in suits:
+            for rank in ranks:
+                self.cards.append(Card(suit, rank))
+
+        self.total_cards = len(self.cards)
+        self.remaining_cards = self.total_cards
+
+    def shuffle(self):
+        random.shuffle(self.cards)
+
+    def cards_left(self):
+        return self.remaining_cards
+
+    def draw_card(self):
+        if len(self.cards) == 0:
+            return "No cards left in the deck."
+
+        drawn_card = self.cards.pop()
+        self.remaining_cards -= 1
+        return drawn_card
+
+def draw_card():
+    if new_deck.cards_left() == 0:
+        return "No cards left in the deck."
+
+    drawn_card = new_deck.draw_card()
+
+    if drawn_card == "No cards left in the deck.":
+        return "No cards left in the deck."
+
+    card_info = f"{drawn_card.__repr__()} - {drawn_card.description}"
+    return card_info
+
+new_deck = Deck()
+new_deck.shuffle()
+
+# Drawing multiple cards as an example
+for _ in range(5):
+    result = draw_card()
+    print(result)
